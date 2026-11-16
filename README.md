@@ -20,9 +20,10 @@ The application uses a HTML foundation, with some CSS and JavaScript (using Gemi
 PhyTrend's philosophy at its core is centered around spatial heterogeneity - how uniform global warming inevitably provokes contradictory regional responses, attempting to amalgamate three spheres (marine biogeochemistry, cryospheric retreat and volcanology) into a single lens. These ecological contradictions were prioritized via our interface, visually juxtaposing phenomena such as thermal stratification in the North Pacific Gyre (limited nutrient upwelling and starving phytoplankton) against the ice-melt in Chukchi Sea (increases light availability and catalyses blooms), thereby demonstrating that effective climatological analysis requires localized approaches to map the prevalent consequences of planetary forcing.
 
 ## NASA Data
-* NASA Giovanni
-* NASA Earthdata Search
-* NSIDC Sea Ice Index
-* NASA MODIS-AQUA
-* GES DISC MSVOLSO₂L4
+* **NASA Giovanni:** data access and area-averaged time series
+* **MODIS-Aqua chlorophyll a:** MODISA_L3m_CHL, R2022.0 (monthly and 8-day, 4 km)
+* **MODIS-Aqua sea surface temperature:** MODISA_L3m_SST (11 µm daytime, monthly, 4 km)
+* **NSIDC Sea Ice Index:** G02135, version 4 (regional monthly extent)
+* **GES DISC Multi-Satellite Volcanic SO₂:** MSVOLSO2L4, version 4
+* **NASA Earthdata Search:** dataset discovery<img width="1444" height="661" alt="Screenshot 2026-11-16 at 1 33 17 AM" src="https://github.com/user-attachments/assets/9076ed73-aa2a-4a1d-879b-3f14c8722876" />
 
