@@ -1,12 +1,14 @@
-# PhyTrend - Phytoplankton Process and Volcanic Rupture (MODIS-Aqua Ocean Colour, 2002-2025)
+# PhyTrend v1.0.0 - Phytoplankton Process and Volcanic Rupture (MODIS-Aqua Ocean Colour, 2002-2025)
 
-## Summary
-Phytoplankton are the cornerstones of life on Earth, accounting for 50-80% majority of the oxygen in our atmosphere; ergo, understanding their response to climate forcing is of paramount importance, but this can only be accounted for if we evaluate volcanic perturbations. PhyTrend is an interactive visualizer of phytoplankton effects that quantifies localized environmental changes to determine whether they are attributable to episodic volcanic events or represent climatic trends that are statistically significant {p < 0.05}. Apropos of the ESTD challenge, the platform utilizes user-uploaded time series data {MODIS-Aqua Ocean Colour & the NSIDC Sea Ice Index} to isolate climate signals by deseasonalizing the data, fitting linear decadal trends and applying the Mann-Kendall test for statistical significance. Contemporaneously, it cross-references the existent anomalies with the MSVOLSO(2)L4 database to track the forcing derived from historical eruptions - attributing specific biological spikes across our four tested systems with exceptional significance (p = 0.008). By contrasting opposing ecological outcomes {case in point, the North Pacific Gyre and the Chukchi Sea exhibited a vastly different decade-based shift in chlorophyll (-4.3% to +16.4% respectively)}, PhyTrend successfully reveals how uniform global stressors can dictate divergent localized biological responses across the Earth system.
+## Team Members - Gergo Meszaros & Hassan Khan (University of Toronto) 
 
 ## Project Links
 * **Project Demonstration:** [Video Link](https://drive.google.com/file/d/1SjyGyUoD61s7dDPLN5h4QfyPzpiP0n6q/view?usp=sharing)
 * **Live Project:** [https://phytrend.earth](https://phytrend.earth)
 * - Video Audio [https://www.epidemicsound.com/music/tracks/a2ec6d8d-c8ea-457c-a3f3-56bb8c53cb18/]
+
+## Summary
+Phytoplankton are the cornerstones of life on Earth, accounting for 50-80% majority of the oxygen in our atmosphere; ergo, understanding their response to climate forcing is of paramount importance, but this can only be accounted for if we evaluate volcanic perturbations. PhyTrend is an interactive visualizer of phytoplankton effects that quantifies localized environmental changes to determine whether they are attributable to episodic volcanic events or represent climatic trends that are statistically significant {p < 0.05}. Apropos of the ESTD challenge, the platform utilizes user-uploaded time series data {MODIS-Aqua Ocean Colour & the NSIDC Sea Ice Index} to isolate climate signals by deseasonalizing the data, fitting linear decadal trends and applying the Mann-Kendall test for statistical significance. Contemporaneously, it cross-references the existent anomalies with the MSVOLSO(2)L4 database to track the forcing derived from historical eruptions - attributing specific biological spikes across our four tested systems with exceptional significance (p = 0.008). By contrasting opposing ecological outcomes {case in point, the North Pacific Gyre and the Chukchi Sea exhibited a vastly different decade-based shift in chlorophyll (-4.3% to +16.4% respectively)}, PhyTrend successfully reveals how uniform global stressors can dictate divergent localized biological responses across the Earth system.
 
 ## Project Details
 PhyTrend operates as a client-operated analytical engine designed to translate Giovanni data into actionable ecological intelligence. To evaluate the mathematics behind our model, we have provided four examples and outlined the equations as a demonstration of the site, as well as providing step-by-step directives for the user to upload their own files. Upon upload, the platform dynamically filters the harmonic seasonal variance to expose the climatological anomaly, plotting these refined data points on an interactive axis and calculating Sen's slope in order to attain a decadal magnitude of change, overlaying the historical sulfur dioxide emissions and volcanic eruption data to visualize the causal forcing.
@@ -23,8 +25,4 @@ PhyTrend's philosophy at its core is centered around spatial heterogeneity - how
 * NSIDC Sea Ice Index
 * NASA MODIS-AQUA
 * GES DISC MSVOLSO₂L4
-* GoDaddy Registry
-
-## Space Agency Partner & Other Data
-* GitHub (Source Code Repository)
 
