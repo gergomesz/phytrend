@@ -7,6 +7,8 @@ Advantage Team Members - Gergo Meszaros & Hassan Khan (University of Toronto)
 * **Live Project:** [https://phytrend.earth](https://phytrend.earth)
 - Video Audio [https://www.epidemicsound.com/music/tracks/a2ec6d8d-c8ea-457c-a3f3-56bb8c53cb18/]
 
+<img width="1444" height="661" alt="Screenshot 2026-11-16 at 1 33 17 AM" src="https://github.com/user-attachments/assets/9076ed73-aa2a-4a1d-879b-3f14c8722876" />
+
 ## Summary
 Phytoplankton are the cornerstones of life on Earth, accounting for approximately half of the oxygen in our atmosphere; ergo, understanding their response to climate forcing is of paramount importance, but this can only be accounted for if we evaluate volcanic perturbations. PhyTrend is an interactive visualizer of phytoplankton effects that quantifies localized environmental changes to determine whether they are attributable to episodic volcanic events or represent climatic trends that are statistically significant {p < 0.05}. Apropos of the ESTD challenge, the platform utilizes user-uploaded Giovanni time series data {MODIS-Aqua chlorophyll and sea surface temperature in accompaniment with the built inNSIDC Sea Ice Index} to isolate climate signals by deseasonalizing the data, fitting linear decadal trends and applying the Mann-Kendall test for statistical significance. Contemporaneously, it cross-references the existent anomalies with the MSVOLSO(2)L4 database to track the forcing derived from historical eruptions - attributing specific biological spikes combined across four eruptions with exceptional significance (p ≈ 0.008). By contrasting opposing ecological outcomes {case in point, the North Pacific Gyre and the Chukchi Sea exhibited a vastly different decade-based shift in chlorophyll (-4.3% to +16.4% respectively)}, PhyTrend successfully reveals how uniform global stressors can dictate divergent localized biological responses across the Earth system.
 
@@ -25,5 +27,4 @@ PhyTrend's philosophy at its core is centered around spatial heterogeneity - how
 * **MODIS-Aqua sea surface temperature:** MODISA_L3m_SST (11 µm daytime, monthly, 4 km)
 * **NSIDC Sea Ice Index:** G02135, version 4 (regional monthly extent)
 * **GES DISC Multi-Satellite Volcanic SO₂:** MSVOLSO2L4, version 4
-* **NASA Earthdata Search:** dataset discovery<img width="1444" height="661" alt="Screenshot 2026-11-16 at 1 33 17 AM" src="https://github.com/user-attachments/assets/9076ed73-aa2a-4a1d-879b-3f14c8722876" />
-
+* **NASA Earthdata Search:** dataset discovery
