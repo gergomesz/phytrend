@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PhyTrend · The Phytoplankton Process and the Volcanic Rupture</title>
+<meta name="description" content="PhyTrend: upload any NASA Giovanni time series and test it: a trend detector that separates long-term ocean change from volcanic anomalies, built on MODIS-Aqua ocean colour, 2002–2025.">
+<meta name="theme-color" content="#05070a">
+<link rel="icon" type="image/png" href="assets/logo-128.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300;400;500;700&family=STIX+Two+Text:ital@0;1&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="globe-wrap" aria-hidden="true"><canvas id="globe-base"></canvas><canvas id="globe-fx"></canvas></div>
+
+<header class="topbar">
+  <span class="tb-left">By Advantage · Space Apps 2026</span>
+  <a class="brand" href="#investigate" data-tab="investigate"><img src="assets/logo-128.png" alt="" width="34" height="34">PhyTrend</a>
+  <nav id="tabs" aria-label="Sections">
+    <a href="#investigate" data-tab="investigate"><span class="lg">Investigate</span><span class="sm">Tool</span></a>
+    <a href="#how" data-tab="how"><span class="lg">How it works</span><span class="sm">How</span></a>
+    <a href="#trends" data-tab="trends">Trends</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div id="globe-hit" title="Drag to turn the globe"></div>
+  <div class="hero-text">
+    <p class="kicker">NASA Space Apps Challenge 2026 · Earth System Trend Detective</p>
+    <p class="product">PhyTrend <span>by Advantage</span></p>
+    <h1>The Phytoplankton Process and the Volcanic Rupture</h1>
+    <p class="sub-hero">Warming-Driven Divergence of Tropical and Arctic Phytoplankton in MODIS-Aqua Ocean Colour, 2002–2025</p>
+    <div class="cta">
+      <a class="btn primary" href="#upload" data-jump="upload">Upload a Giovanni file</a>
+      <a class="btn" href="#detector" data-jump="detector">Search the record</a>
+    </div>
+  </div>
+  <div class="hero-figs">
+    <div class="hf warm"><div class="v" id="hf-gyre">−4.3%</div><div class="k"><b>Gyre chlorophyll</b>per decade</div></div>
+    <div class="hf chl"><div class="v" id="hf-chuk">+16.4%</div><div class="k"><b>Chukchi chlorophyll</b>per decade</div></div>
+    <div class="hf sst"><div class="v" id="hf-sst">+0.30 °C</div><div class="k"><b>Gyre surface</b>per decade</div></div>
+    <div class="hf volc"><div class="v" id="hf-fisher">p ≈ 0.008</div><div class="k"><b>Four eruptions</b>combined</div></div>
+  </div>
+  <div class="legend-box">
+    <p><i class="sw volc"></i>Eruptions, 2002–2025 · NASA MSVOLSO₂L4 · size = SO₂</p>
+    <p><i class="sw warm"></i>North Pacific Gyre · the lid tightens</p>
+    <p><i class="sw chl"></i>Chukchi and Barents Seas · the lid lifts</p>
+    <p><i class="sw focus"></i>The region you are testing</p>
+    <p class="ramp-row"><span class="ramp"></span>Particles: illustrative surface flow, not data · drag to turn</p>
+  </div>
+</div>
+
+<main class="sheet" id="content">
+
+<div class="tab" id="tab-investigate">
+<section class="panel panel-main" id="upload" data-acc="chl">
+  <p class="pk"><span>01</span>Investigate · Upload</p>
+  <div class="plate-head">
+    <div>
+      <h2>Open Investigation <span class="help"><button class="help-btn" type="button" aria-expanded="false" aria-controls="gio-help" aria-label="How to get a CSV from NASA Giovanni">?</button>
+      <span class="help-pop" id="gio-help" role="dialog" aria-label="How to get a CSV from NASA Giovanni">
+        <span class="hp-head"><span class="hp-k">How to get the file</span><span class="hp-t">A CSV from NASA Giovanni</span><span class="hp-s">You need a <b>Time Series, Area-Averaged</b> CSV of one variable over one box of ocean. Giovanni is free; sign in with a NASA Earthdata account.</span></span>
+        <span class="hp-steps">
+          <span class="st"><i>1</i><b>Choose the variable</b>Search <code>chlorophyll MODIS-Aqua</code>. Tick the <em>checkbox</em>, not the blue link, for <em>Chlorophyll a concentration (water only)</em>: the Monthly row (MODISA_L3m_CHL) or the 8-Daily row (MODISA_L3m_CHL_8d_4km). Tick only one.</span>
+          <span class="st"><i>2</i><b>Set the plot</b>Select Plot: <em>Time Series, Area-Averaged</em>. Dates: 2002-07-04 to the latest month. Region: paste a box as West, South, East, North.</span>
+          <span class="st"><i>3</i><b>Run it</b>Click the green <em>Plot Data</em> button. Monthly takes about a minute; 8-day takes a few.</span>
+          <span class="st"><i>4</i><b>Download</b>Above the chart, choose <em>Download ▾ → CSV</em>. Avoid the “Downloads” link in the left panel; it often shows “no data available”.</span>
+          <span class="st"><i>5</i><b>Drop it here</b>PhyTrend reads the box and dates from the file, and treats −32767 (cloud, ice or polar night) as missing.</span>
+        </span>
+        <span class="hp-table"><span class="hp-k">Boxes to try</span>
+          <table><thead><tr><th>Region</th><th>Time step</th><th>Box (W, S, E, N)</th><th></th></tr></thead><tbody><tr><td>North Pacific Gyre</td><td>Monthly</td><td><code>-170,20,-140,30</code></td><td><button type="button" class="copy" data-copy="-170,20,-140,30">Copy</button></td></tr><tr><td>Barents Sea</td><td>Monthly</td><td><code>20,70,60,80</code></td><td><button type="button" class="copy" data-copy="20,70,60,80">Copy</button></td></tr><tr><td>Chukchi Sea</td><td>Monthly</td><td><code>-180,66,-157,75</code></td><td><button type="button" class="copy" data-copy="-180,66,-157,75">Copy</button></td></tr><tr><td>Kīlauea, Hawaiʻi</td><td>8-day</td><td><code>-155,18.5,-153.5,20</code></td><td><button type="button" class="copy" data-copy="-155,18.5,-153.5,20">Copy</button></td></tr><tr><td>Hunga Tonga</td><td>8-day</td><td><code>-176,-22,-174,-20</code></td><td><button type="button" class="copy" data-copy="-176,-22,-174,-20">Copy</button></td></tr><tr><td>Kasatochi</td><td>8-day</td><td><code>-155,48,-135,58</code></td><td><button type="button" class="copy" data-copy="-155,48,-135,58">Copy</button></td></tr><tr><td>Raikoke</td><td>8-day</td><td><code>155,45,170,55</code></td><td><button type="button" class="copy" data-copy="155,45,170,55">Copy</button></td></tr></tbody></table>
+        </span>
+        <span class="hp-foot">For temperature instead, search <code>sea surface temperature MODIS-Aqua</code> and tick <em>Sea Surface Temperature at 11 microns (Day)</em>, Monthly 4 km. To make another file, click <em>Back to Data Selection</em>: your settings are kept, so usually only the box changes. <a href="https://giovanni.gsfc.nasa.gov/giovanni/" target="_blank" rel="noopener">Open NASA Giovanni ↗</a></span>
+      </span></span></h2>
+      <p class="sub">Input your own ocean</p>
+    </div>
+  </div>
+  <div class="plate-body">
+    <div class="figure">
+      <label class="drop" id="up-drop">
+        <input type="file" id="up-file" accept=".csv,text/csv">
+        <span><b>Drop a Giovanni CSV here</b> or click to choose a file</span>
+        <span class="lbl-sub" style="font-size:11px">Time Series, Area-Averaged · monthly or 8-day</span>
+      </label>
+      <div class="btnrow" style="margin-top:10px"><button class="replay" type="button" id="up-demo">Try an example file</button></div>
+      <p class="err" id="up-err"></p>
+      <div id="up-out" hidden style="display:grid;gap:12px;margin-top:12px">
+        <div class="chart" id="up-chart"></div>
+        <p class="fig-cap"><b>Figure I</b>Your series, yearly, with the seasons removed and Sen’s slope dashed.</p>
+        <div class="readout"><div class="tag" id="up-tag"></div><div class="big" id="up-big"></div><div class="small" id="up-small"></div></div>
+        <span class="verdict" id="up-verdict"></span>
+        <div class="notes"><p><span class="kicker">Spikes and possible eruptions</span></p><ul class="spikes" id="up-spikes"></ul></div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>Download any area-averaged time series from the <a href="https://giovanni.gsfc.nasa.gov/giovanni/" target="_blank" rel="noopener">NASA Giovanni website</a> and upload the .csv here. The detector reads the file’s region, runs the tests and searches the eruption database for volcanic activity that the spike could be attributed to.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="detector" data-acc="chl">
+  <p class="pk"><span>02</span>Investigate · Search the record</p>
+  <div class="plate-head">
+    <div>
+      <h2>The Trend Detector <button class="eli-btn" type="button" aria-expanded="false" aria-controls="eli-detector" aria-label="Sheet 2: explain in simple terms">?</button></h2>
+      <p class="sub">What is changing, and is it real?</p>
+    </div>
+  </div>
+  <div class="eli" id="eli-detector" hidden><p class="eli-k">In simple terms</p><p>If the numbers were just random noise, how often would they still line up into a slope this steep? ‘Significant’ means less than 1 time in 20. A p-value of 0.017 means about 2 times in 100.</p></div>
+  <div class="plate-body">
+    <div class="figure"><div class="chart" id="det-chart"></div><p class="fig-cap" id="det-cap"></p></div>
+    <div class="controls">
+      <div class="sel"><label for="det-var">Variable</label><select id="det-var"><option value="chl">Chlorophyll-a</option><option value="sst">Sea surface temperature</option><option value="ice">Sea-ice extent</option></select></div>
+      <div class="sel"><label for="det-reg">Region</label><select id="det-reg"></select></div>
+      <p class="def" id="det-def"></p>
+      <div class="readout" aria-live="polite">
+        <div class="tag" id="det-tag"></div>
+        <div class="big" id="det-rate"></div>
+        <div class="small" id="det-ci"></div>
+      </div>
+      <span class="verdict" id="det-verdict"></span>
+      <div class="notes"><p>Select a variable and a region. The detector removes the seasonal cycle, fits a trend through the annual values and reports how it is changing and whether that change is statistically significant. Green means the trend is very unlikely to be luck; grey means it is uncertain.</p></div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div class="tab" id="tab-how" hidden>
+<section class="panel" id="overview" data-acc="chl">
+  <p class="pk"><span>01</span>How it works · The lid</p>
+  <div class="plate-head">
+    <div>
+      <h2>How it works <button class="eli-btn" type="button" aria-expanded="false" aria-controls="eli-overview" aria-label="How it works: explain in simple terms">?</button></h2>
+      <p class="sub">Sunlight from above, nutrients from below</p>
+    </div>
+    <button class="replay" type="button" data-replay="xsec">Redraw</button>
+  </div>
+  <div class="eli" id="eli-overview" hidden><p class="eli-k">In simple terms</p><p>Phytoplankton need two main inputs: sunlight from above and food (nutrients) from below. Stratification, the divide between layers of water, means warm water floats on top of cold water, as if it were a lid. Salt matters too: melting ice is fresh, so it is lighter than seawater and forms a lid of its own. Near the tropics, this lid is thicker, so less food can rise to the surface, whereas in the Arctic, melting ice lets in light. Notwithstanding, volcanoes can produce similar, and even harsher, effects, so they have to be separated from the longer-term trend.</p></div>
+  <div class="hero-intro">
+    <p class="epigraph"><i>Phytoplankton</i>: from the Greek <i>phytón</i>, ‘plant’, and <i>planktós</i>, ‘wandering’. The drifting plants.</p>
+    <p>These plants depend on a single arrangement: sunlight from above, nutrients from below, and a layer of warm water between them that acts as a lid. Since 2002, that lid has tightened over the Pacific, where chlorophyll has fallen 4.3 per cent per decade, and lifted in the Arctic, where it has risen 16.4 per cent. However, a volcano can rupture it in a week.</p>
+    <p>The trend detector that we built, on 23 years of MODIS-Aqua ocean colour, operates on the basis of four fundamental questions: what is changing, where, by how much, and whether that change is a trend or an anomaly attributable to a volcanic eruption, based on NASA’s Multi-Satellite Volcanic SO₂ database.</p>
+  </div>
+  <div class="figure drawing" id="xsec">
+    <svg viewBox="0 0 1000 410" role="img" aria-labelledby="xsec-t xsec-d">
+      <title id="xsec-t">Schematic cross-section: tropical ocean, volcano, Arctic ocean</title>
+      <desc id="xsec-d">On the left, a thick warm surface layer acts as a lid that stops nutrients rising from the cold deep water. In the middle, a volcano drops iron-rich ash into the sea. On the right, retreating sea ice lets light into the Arctic, where phytoplankton bloom beneath a thin layer of fresh meltwater.</desc>
+      <defs><pattern id="hx-ground" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" class="hatch-line"/></pattern></defs>
+      <!-- tropics warm layer -->
+      <path class="sea warm" d="M40 110 L430 110 L430 196 L40 196 Z"/>
+      <!-- arctic meltwater -->
+      <path class="sea cold" d="M610 110 L960 110 L960 136 L610 136 Z"/>
+      <!-- seafloor -->
+      <path class="hatch-ground" d="M40 380 L420 380 L470 300 L500 160 L520 160 L550 300 L600 380 L960 380 L960 400 L40 400 Z"/>
+      <path data-draw class="ln bold" d="M40 380 L420 380 L470 300 L496 140 L506 92 L516 92 L526 140 L550 300 L600 380 L960 380"/>
+      <!-- sea surface -->
+      <path data-draw class="ln" d="M40 110 L491 110 M531 110 L960 110"/>
+      <!-- the lid -->
+      <path data-draw class="ln bold dash c-warm" d="M40 196 L430 196"/>
+      <path class="ln faint dash" d="M610 136 L960 136"/>
+      <!-- sun, tropics -->
+      <circle cx="110" cy="52" r="15" class="ln c-sun"/>
+      <path class="ln thin c-sun" d="M110 28 L110 20 M110 76 L110 84 M86 52 L78 52 M134 52 L142 52 M93 35 L88 30 M127 69 L132 74 M127 35 L132 30 M93 69 L88 74"/>
+      <path data-draw class="ln thin" d="M150 66 L168 104 M174 66 L192 104"/>
+      <!-- nutrients blocked -->
+      <g class="fill-ink"><circle cx="120" cy="330" r="3"/><circle cx="160" cy="300" r="3"/><circle cx="210" cy="345" r="3"/><circle cx="260" cy="310" r="3"/><circle cx="310" cy="340" r="3"/><circle cx="350" cy="300" r="3"/><circle cx="185" cy="260" r="3"/><circle cx="300" cy="265" r="3"/></g>
+      <path data-draw class="ln" d="M150 300 L150 210"/><path class="ln bold" d="M138 205 L162 205"/>
+      <path data-draw class="ln" d="M230 300 L230 210"/><path class="ln bold" d="M218 205 L242 205"/>
+      <!-- sparse plankton -->
+      <g class="fill-chl"><circle cx="250" cy="150" r="2"/><circle cx="350" cy="170" r="2"/><circle cx="90" cy="160" r="2"/></g>
+      <!-- volcano plume + ash -->
+      <path data-draw class="ln c-volc" d="M511 88 C 505 60, 530 40, 560 36 C 600 30, 630 46, 640 30"/>
+      <path data-draw class="ln thin c-volc" d="M511 88 C 520 62, 548 58, 570 56"/>
+      <g class="fill-volc"><circle cx="560" cy="70" r="1.8"/><circle cx="582" cy="82" r="1.8"/><circle cx="574" cy="98" r="1.8"/><circle cx="596" cy="96" r="1.8"/><circle cx="560" cy="122" r="1.8"/><circle cx="586" cy="130" r="1.8"/><circle cx="604" cy="118" r="1.8"/></g>
+      <!-- arctic: sun low, ice, light, bloom -->
+      <circle cx="930" cy="40" r="11" class="ln c-sun"/>
+      <path data-draw class="ln thin" d="M910 52 L700 125 M905 62 L740 130 M900 70 L660 128"/>
+      <path data-draw class="ln bold c-ice" d="M800 104 L840 102 L846 118 L806 120 Z M860 103 L960 101 L960 121 L866 120 Z"/>
+      <g class="fill-chl"><circle cx="640" cy="148" r="2.4"/><circle cx="662" cy="160" r="2.4"/><circle cx="684" cy="146" r="2.4"/><circle cx="700" cy="166" r="2.4"/><circle cx="722" cy="150" r="2.4"/><circle cx="742" cy="168" r="2.4"/><circle cx="764" cy="152" r="2.4"/><circle cx="650" cy="178" r="2.4"/><circle cx="710" cy="186" r="2.4"/><circle cx="770" cy="182" r="2.4"/><circle cx="690" cy="200" r="2.4"/></g>
+      <path data-draw class="ln" d="M680 330 L680 214"/><path class="fill-ink" d="M680 208 L674 220 L686 220 Z"/>
+      <path data-draw class="ln" d="M740 330 L740 214"/><path class="fill-ink" d="M740 208 L734 220 L746 220 Z"/>
+      <!-- labels -->
+      <text x="46" y="128" class="lbl">Tropics · North Pacific Gyre</text>
+      <text x="46" y="142" class="lbl-sub">warm, light surface layer</text>
+      <text x="426" y="216" class="lbl t-warm" text-anchor="end">The lid</text>
+      <text x="426" y="230" class="lbl-sub" text-anchor="end">thickens as the surface warms</text>
+      <text x="46" y="372" class="lbl-sub">cold, nutrient-rich deep water</text>
+      <text x="252" y="262" class="lbl-sub">nutrients held below</text>
+      <text x="330" y="90" class="lbl t-warm">−4.3% / decade</text>
+      <text x="530" y="24" class="lbl t-volc">Volcanic rupture</text>
+      <text x="552" y="214" class="lbl-sub">ash carries</text>
+      <text x="552" y="226" class="lbl-sub">iron into the sea</text>
+      <text x="954" y="232" class="lbl" text-anchor="end">Arctic · Chukchi Sea</text>
+      <text x="954" y="246" class="lbl-sub" text-anchor="end">ice retreats, light enters</text>
+      <text x="640" y="90" class="lbl t-chl">+16.4% / decade</text>
+      <text x="954" y="372" class="lbl-sub" text-anchor="end">fresh meltwater forms a thin lid</text>
+      <text x="40" y="408" class="lbl-sub">Schematic, not to scale</text>
+    </svg>
+  </div>
+</section>
+<section class="panel" id="method" data-acc="chl">
+  <p class="pk"><span>02</span>How it works · Method</p>
+  <div class="plate-head">
+    <div>
+      <h2>Trend Isolation</h2>
+      <p class="sub">What remains when the seasons are removed?</p>
+    </div>
+  </div>
+  <div class="plate-body">
+    <div class="figure">
+      <div class="toggle chips" id="s3-toggle"><button class="chip" type="button" data-mode="raw" aria-pressed="true">Raw monthly</button><button class="chip" type="button" data-mode="adj" aria-pressed="false">Seasons removed</button></div>
+      <div class="chart" id="s3-chart" style="margin-top:12px"></div>
+      <p class="fig-cap"><b>Figure III</b>North Pacific Gyre chlorophyll, 2002–2025. Raw: every winter peak and summer low. Seasons removed: each month against its own average (faint line), and the yearly means used for the trend (dots).</p>
+    </div>
+    <div class="notes">
+      <p><span class="kicker">Log scale.</span> Chlorophyll spans orders of magnitude, from 0.04 mg/m³ in the gyre to over 3 in an Arctic bloom, so each series was log-transformed. A change from 0.04 to 0.08 then counts the same as one from 2 to 4: a doubling.</p>
+      <p><span class="kicker">Seasons.</span> Spring blooms and winter lows repeat every year, so they say nothing about change. We subtracted each calendar month’s average from that month, leaving only how unusual each month was, then averaged those into one value per year.</p>
+      <p><span class="kicker">Tests.</span> The Mann-Kendall test seeks to find out whether there is a monotonic upward or downward trend in a variable, by comparing every pair of years and counting how often the later year is higher. Should rises far outnumber falls, the trend is unlikely to be dictated by chance alone. Sen’s slope takes the median of every year-to-year slope, so single extreme years, such as volcanic bloom events, cannot drag the rate.</p>
+    </div>
+  </div>
+  <div class="formula">S = Σ<sub class="up">i&lt;j</sub> sign(y<sub>j</sub> − y<sub>i</sub>) &nbsp;&nbsp;·&nbsp;&nbsp; β = median[ (y<sub>j</sub> − y<sub>i</sub>) / (j − i) ]</div>
+  <p class="caption">S counts rises minus falls across every pair of years; β is Sen’s slope. Its 95% interval comes from the ranks of the pairwise slopes, and the p-value from the normal approximation to S, with ties corrected.</p>
+</section>
+
+<section class="panel" id="limits" data-acc="warm">
+  <p class="pk"><span>03</span>How it works · Limits</p>
+  <div class="plate-head">
+    <div>
+      <h2>Limitations</h2>
+      <p class="sub">Where could this mislead?</p>
+    </div>
+  </div>
+  <div class="twin">
+    <div class="notes"><p><span class="kicker">Record length.</span> Twenty-three years is short for chlorophyll, which swings with El Niño from year to year. Studies suggest 30 to 40 years are needed to separate a climate trend from this natural variability, so the gyre decline is early evidence; an expanded record would make it more reliable.</p></div>
+    <div class="notes"><p><span class="kicker">Arctic satellite bias.</span> Arctic rivers carry coloured dissolved organic matter, which absorbs light much like chlorophyll. In simple terms, the satellite can mistake river water for plants and overestimate chlorophyll near the coast.</p></div>
+  </div>
+</section>
+
+<section class="panel" id="data" data-acc="ice">
+  <p class="pk"><span>04</span>How it works · Sources</p>
+  <div class="plate-head">
+    <div>
+      <h2>Data and sources</h2>
+      <p class="sub">Where every number comes from</p>
+    </div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>Datasets</h3>
+      <ul>
+        <li>MODIS-Aqua Level-3 chlorophyll-a (MODISA_L3m_CHL, R2022.0), monthly and 8-day, 4 km, area-averaged in <a href="https://giovanni.gsfc.nasa.gov/giovanni/" target="_blank" rel="noopener">NASA Giovanni</a>.</li>
+        <li>MODIS-Aqua Level-3 sea surface temperature, 11 µm day (MODISA_L3m_SST), monthly, 4 km.</li>
+        <li>NSIDC Sea Ice Index, version 4 (G02135), regional monthly extent for the Barents and Chukchi Seas.</li>
+        <li>Multi-Satellite Volcanic Sulfur Dioxide L4 Long-Term Global Database, version 4 (MSVOLSO2L4), NASA GES DISC, doi:10.5067/MEASURES/SO2/DATA405.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Volcanic blooms in the literature</h3>
+      <ul>
+        <li>Wilson, S. T., Hawco, N. J. et al. (2019). Kīlauea lava fuels phytoplankton bloom in the North Pacific Ocean. <i>Science</i> 365, 1040–1044.</li>
+        <li>Hamme, R. C. et al. (2010). Volcanic ash fuels anomalous plankton bloom in subarctic northeast Pacific. <i>Geophysical Research Letters</i> 37, L19604.</li>
+        <li>Barone, B., Letelier, R. M., Rubin, K. H. and Karl, D. M. (2022). Satellite detection of a massive phytoplankton bloom following the 2022 submarine eruption of the Hunga Tonga-Hunga Ha‘apai volcano. <i>Geophysical Research Letters</i>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div class="tab" id="tab-trends" hidden>
+<section class="panel" id="tropics" data-acc="warm">
+  <p class="pk"><span>01</span>Trends · Tropics</p>
+  <div class="plate-head">
+    <div>
+      <h2>The Tightening Lid</h2>
+      <p class="sub">Why is the North Pacific Gyre losing its plants?</p>
+    </div>
+  </div>
+  <div class="fig-pair">
+    <div class="fig"><div class="chart" id="s4-chl"></div><p class="fig-cap"><b>Figure IV</b>Gyre chlorophyll, yearly, vs normal · <span id="s4-chl-r"></span></p></div>
+    <div class="fig"><div class="chart" id="s4-sst"></div><p class="fig-cap"><b>Figure V</b>Gyre sea surface temperature, yearly, vs normal · <span id="s4-sst-r"></span></p></div>
+  </div>
+  <div class="twin">
+    <div class="notes"><p>Between 2003 and 2025, the surface of the North Pacific Gyre warmed by 0.30 °C per decade (p = 0.006), while its chlorophyll fell by 4.3 per cent per decade (p = 0.017). A warmer surface is lighter, so it resists mixing with the cold, nutrient-rich water beneath it, and less food reaches the surface.</p></div>
+    <div class="notes"><p>Year to year, the two move only loosely together (r = −0.33, not significant), as El Niño and eddies add noise. The link shows in the long-run trends, not in every single year.</p></div>
+  </div>
+</section>
+
+<section class="panel" id="arctic" data-acc="ice">
+  <p class="pk"><span>02</span>Trends · Arctic</p>
+  <div class="plate-head">
+    <div>
+      <h2>Arctic Divergence</h2>
+      <p class="sub">Is the same warming feeding the north?</p>
+    </div>
+  </div>
+  <div class="mini-grid">
+    <div class="fig"><div class="chart" id="s5-chuk"></div><p class="fig-cap"><b>Figure VIa</b>Chukchi Sea chlorophyll, May–September · <span id="s5-chuk-r"></span></p></div>
+    <div class="fig"><div class="chart" id="s5-chuk-ice"></div><p class="fig-cap"><b>Figure VIb</b>Chukchi Sea ice extent, yearly mean · <span id="s5-chuk-ice-r"></span></p></div>
+    <div class="fig"><div class="chart" id="s5-bar"></div><p class="fig-cap"><b>Figure VIc</b>Barents Sea chlorophyll, April–September · <span id="s5-bar-r"></span></p></div>
+    <div class="fig"><div class="chart" id="s5-bar-ice"></div><p class="fig-cap"><b>Figure VId</b>Barents Sea ice extent, yearly mean · <span id="s5-bar-ice-r"></span></p></div>
+  </div>
+  <div class="notes"><p>Sea ice blocks sunlight. As it retreats earlier each year, phytoplankton get a longer growing season. In the Chukchi Sea, chlorophyll rose 16.4 per cent per decade (p = 0.001); in the Barents Sea, 5.9 per cent, not yet significant (p = 0.27).</p></div>
+  <div class="tablewrap"><table aria-label="Table I: trend results">
+    <thead><tr><th>Region</th><th>Variable</th><th>Years</th><th class="num">Sen’s slope</th><th class="num">95% interval</th><th class="num">Mann-Kendall p</th><th>Verdict</th></tr></thead>
+    <tbody id="t1"></tbody>
+  </table></div>
+  <p class="caption">Table I · Every trend on this site, computed live in your browser from the data files. Chlorophyll in per cent per decade; temperature in °C; ice in thousand km².</p>
+</section>
+
+<section class="panel" id="volcanoes" data-acc="volc">
+  <p class="pk"><span>03</span>Trends · Volcanoes</p>
+  <div class="plate-head">
+    <div>
+      <h2>The Volcanic Rupture</h2>
+      <p class="sub">Can an eruption be told apart from a trend?</p>
+    </div>
+  </div>
+  <div class="chips" id="ev-chips">
+    <button class="chip" type="button" data-ev="kilauea" aria-pressed="true">Kīlauea 2018</button>
+    <button class="chip" type="button" data-ev="tonga" aria-pressed="false">Hunga Tonga 2022</button>
+    <button class="chip" type="button" data-ev="kasatochi" aria-pressed="false">Kasatochi 2008</button>
+    <button class="chip" type="button" data-ev="raikoke" aria-pressed="false">Raikoke 2019</button>
+  </div>
+  <div class="plate-body">
+    <div class="figure"><div class="chart" id="ev-chart"></div><p class="fig-cap" id="ev-cap"></p></div>
+    <div class="controls">
+      <div class="readout" aria-live="polite">
+        <div class="tag" id="ev-tag"></div>
+        <div class="big" id="ev-big"></div>
+        <div class="small" id="ev-small"></div>
+      </div>
+      <div class="notes"><p>Volcanic ash carries iron, the missing ingredient across much of the ocean, while lava entering the sea can lift deep, nutrient-rich water to the surface. For each eruption, we compared chlorophyll in the weeks afterwards with the same weeks in every other year, a placebo test borrowed from event studies in finance. Kīlauea and Tonga were the highest of any year; Kasatochi was second; Raikoke, fifth. Together, p ≈ 0.008.</p></div>
+    </div>
+  </div>
+  <div class="formula">z = (log<sub>10</sub>C − μ<sub>week</sub>) / σ<sub>week</sub> &nbsp;&nbsp;·&nbsp;&nbsp; p = (k + 1) / (n + 1)</div>
+  <p class="caption">μ and σ are the mean and spread for the same 8-day period in all other years. The test-window mean of z is ranked against the same window in each of the n other years; k is the number of years that scored as high or higher.</p>
+  <div class="tablewrap"><table aria-label="Table II: eruption tests">
+    <thead><tr><th>Eruption</th><th>Mechanism</th><th>Box</th><th class="num">Peak</th><th class="num">Peak date</th><th class="num">Rank</th><th class="num">Placebo p</th></tr></thead>
+    <tbody id="t2"></tbody>
+  </table></div>
+  <p class="caption">Table II · Peak is the highest 8-day chlorophyll in the test window relative to normal. Eruption dates and SO₂ masses from NASA’s MSVOLSO2L4 database.</p>
+</section>
+
+</div>
+
+<footer class="foot"><span>PhyTrend · by Advantage · NASA Space Apps Challenge 2026</span><span>NASA MODIS-Aqua · NSIDC Sea Ice Index · GES DISC MSVOLSO₂L4</span></footer>
+</main>
+<script src="assets/data.js"></script>
+<script src="assets/coast.js"></script>
+<script src="assets/globe.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
